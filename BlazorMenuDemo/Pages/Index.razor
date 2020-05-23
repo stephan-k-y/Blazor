@@ -1,10 +1,13 @@
 ﻿@page "/"
 
-<BlazorMenuComponent OnMenuItemClicked="@(() => Console.WriteLine("Parent received"))" MenuItems=MenuItems />
+<p>@menuItemClicked</p>
+
+<BlazorMenuComponent OnMenuItemClicked="@((menuITem) => menuItemClicked = "Menu item \"" + menuITem.Text + "\" was clicked")" MenuItems=MenuItems />
 
 @code
 {
     private IList<BlazorMenuItem> MenuItems = new List<BlazorMenuItem>();
+    private string menuItemClicked = "No menu item was clicked.";
 
     protected override void OnInitialized()
     {

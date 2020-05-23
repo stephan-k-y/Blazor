@@ -1,4 +1,3 @@
-using Bunit.Mocking.JSInterop;
 using Xunit;
 using Bunit;
 using BlazorMenuLibrary;
@@ -101,6 +100,26 @@ namespace SampleApp.Tests.Components
             item12?.Click();
 
             Assert.False(wasCalled);
+        }
+
+        [Fact(DisplayName = "Should render arrow for a menu with a submenu")]
+        public void ShouldRenderArrow()
+        {
+            IList<BlazorMenuItem> menuItems = GenerateTestMenuItems();
+
+            var myMenuComponent = RenderComponent<BlazorMenuComponent>((nameof(BlazorMenuComponent.MenuItems), menuItems));
+
+            var menuItemComponents = new List<IRenderedComponent<BlazorMenuItemComponent>>();
+            menuItemComponents.AddRange(myMenuComponent.FindComponents<BlazorMenuItemComponent>());
+
+
+            menuItemComponents.ForEach((menuItem) =>
+            {
+                if (menuItem.Instance.MenuItem?.ChildItems?.Count > 0)
+                {
+                    Assert.NotNull(menuItem.Find(".arrow"));
+                }
+            });
         }
     }
 }
