@@ -20,7 +20,6 @@ namespace SampleApp.Tests.Components
             item12.Add(item121);
             item12.Add(item122);
 
-
             IList<BlazorMenuItem> menuItems = new List<BlazorMenuItem>();
             menuItems.Add(item11);
             menuItems.Add(item12);
@@ -64,7 +63,7 @@ namespace SampleApp.Tests.Components
             IList<BlazorMenuItem> menuItems = GenerateTestMenuItems();
 
             var myMenuComponent = RenderComponent<BlazorMenuComponent>(
-               EventCallback(nameof(BlazorMenuComponent.OnMenuItemClicked), (BlazorMenuItem _) => wasCalled = true),
+               EventCallback(nameof(BlazorMenuComponent.OnBlazorMenuItemClicked), (BlazorMenuItem _) => wasCalled = true),
                (nameof(BlazorMenuComponent.MenuItems), menuItems)
            );
 
@@ -82,12 +81,12 @@ namespace SampleApp.Tests.Components
         [Fact(DisplayName = "Clicking on item with subitems shoud not trigger OnMenuItemClicked")]
         public void ShouldNotTriggerOnMenuItemClicked()
         {
-            var wasCalled = false;
+            bool wasCalled = false;
 
             IList<BlazorMenuItem> menuItems = GenerateTestMenuItems();
 
             var myMenuComponent = RenderComponent<BlazorMenuComponent>(
-               EventCallback(nameof(BlazorMenuComponent.OnMenuItemClicked), (BlazorMenuItem _) => wasCalled = true),
+               EventCallback(nameof(BlazorMenuComponent.OnBlazorMenuItemClicked), (BlazorMenuItem _) => wasCalled = true),
                (nameof(BlazorMenuComponent.MenuItems), menuItems)
            );
 

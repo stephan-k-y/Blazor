@@ -1,6 +1,7 @@
 ﻿<li @onmouseover=MouseOver @onmouseout=MouseOut style="@Color">
     <a href="#" @onclick=OnClick>
         @MenuItem?.Text
+
         @if (HasChildrenItems)
         {
             @if (IsTopLevelMenuItem)
@@ -11,7 +12,6 @@
             {
                 <i class="arrow right"></i>
             }
-
         }
     </a>
 
@@ -20,7 +20,7 @@
         <ul style="@ChildrenVisible">
             @foreach (BlazorMenuItem menuItem in MenuItem.ChildItems)
             {
-                <BlazorMenuItemComponent MenuItem="@menuItem" OnMenuItemClicked=OnChildElementClicked />
+                <BlazorMenuItemComponent MenuItem=menuItem OnMenuItemClicked=OnChildElementClicked />
             }
         </ul>
     }

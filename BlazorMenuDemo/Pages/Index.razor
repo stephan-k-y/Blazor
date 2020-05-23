@@ -1,13 +1,13 @@
 ﻿@page "/"
 
-<p>@menuItemClicked</p>
+<p>@menuItemText</p>
 
-<BlazorMenuComponent OnMenuItemClicked="@((menuITem) => menuItemClicked = "Menu item \"" + menuITem.Text + "\" was clicked")" MenuItems=MenuItems />
+<BlazorMenuComponent OnBlazorMenuItemClicked="@((menuItem) => menuItemText = "Menu item \"" + menuItem.Text + "\" was clicked")" MenuItems="@menuItems" />
 
 @code
 {
-    private IList<BlazorMenuItem> MenuItems = new List<BlazorMenuItem>();
-    private string menuItemClicked = "No menu item was clicked.";
+    private IList<BlazorMenuItem> menuItems = new List<BlazorMenuItem>();
+    private string menuItemText = "No menu item was clicked.";
 
     protected override void OnInitialized()
     {
@@ -42,8 +42,8 @@
         recentFile21MenuClass.Add(recentFile12MenuClass);
         recentFile21MenuClass.Add(recentFile22MenuClass);
 
-        MenuItems.Add(fileMenuClass);
-        MenuItems.Add(editMenuClass);
+        menuItems.Add(fileMenuClass);
+        menuItems.Add(editMenuClass);
 
         base.OnInitialized();
     }
