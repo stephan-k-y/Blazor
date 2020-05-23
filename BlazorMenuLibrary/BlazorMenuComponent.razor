@@ -1,0 +1,9 @@
+﻿<ul class="MyMenuComponent">
+    @if (MenuItems != null)
+    {
+        @foreach (BlazorMenuItem menuItem in MenuItems)
+        {
+            <BlazorMenuItemComponent MenuItem="@menuItem" IsTopLevelMenuItem="@true" OnMenuItemClicked=OnChildItemClick />
+        }
+    }
+</ul>

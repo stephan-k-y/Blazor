@@ -1,0 +1,29 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorMenuLibrary.Tests", "tests\BlazorMenuLibrary.Tests.csproj", "{A906D875-CDED-48B9-A3CA-B446ACBEA193}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorMenuLibrary", "BlazorMenuLibrary\BlazorMenuLibrary.csproj", "{74D55395-5D3A-4197-9734-512FA53ED061}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorMenuDemo", "BlazorMenuDemo\BlazorMenuDemo.csproj", "{09B0E69D-C87E-451F-8DC6-37A6CA478690}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A906D875-CDED-48B9-A3CA-B446ACBEA193}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A906D875-CDED-48B9-A3CA-B446ACBEA193}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A906D875-CDED-48B9-A3CA-B446ACBEA193}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A906D875-CDED-48B9-A3CA-B446ACBEA193}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74D55395-5D3A-4197-9734-512FA53ED061}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74D55395-5D3A-4197-9734-512FA53ED061}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74D55395-5D3A-4197-9734-512FA53ED061}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74D55395-5D3A-4197-9734-512FA53ED061}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09B0E69D-C87E-451F-8DC6-37A6CA478690}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09B0E69D-C87E-451F-8DC6-37A6CA478690}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09B0E69D-C87E-451F-8DC6-37A6CA478690}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09B0E69D-C87E-451F-8DC6-37A6CA478690}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

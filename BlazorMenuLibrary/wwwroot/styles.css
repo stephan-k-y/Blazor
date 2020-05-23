@@ -1,0 +1,63 @@
+﻿/*
+    This file is to show how CSS and other static resources (such as images) can be
+    used from a library project/package.
+*/
+
+.MyMenuComponent {
+    list-style: none inside;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+    .MyMenuComponent li {
+        display: block;
+        position: relative;
+        float: left;
+    }
+
+        .MyMenuComponent li a {
+            display: block;
+            padding: 0;
+            text-decoration: none;
+            width: 200px; /* this is the width of the menu items */
+            line-height: 35px; /* this is the hieght of the menu items */
+            color: #ffffff; /* list item font color */
+        }
+
+        /* smaller font size for sub menu items */
+        .MyMenuComponent li li a {
+            font-size: 80%;
+        }
+
+    .MyMenuComponent ul {
+        position: absolute;
+        padding: 0;
+        left: 0;
+    }
+
+    /* shows sublist on hover */
+    .MyMenuComponent li li ul {
+        margin-left: 200px; /* this should be the same width as the parent list item */
+        margin-top: -35px; /* aligns top of sub menu with top of list item */
+    }
+
+
+
+
+    .MyMenuComponent .arrow {
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        display: inline-block;
+        padding: 2px;
+    }
+
+    .MyMenuComponent .right {
+        transform: rotate(-45deg);
+        -webkit-transform: rotate(-45deg);
+    }
+
+    .MyMenuComponent .down {
+        transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+    }

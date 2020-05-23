@@ -1,0 +1,47 @@
+﻿@page "/"
+
+<BlazorMenuComponent OnMenuItemClicked="@(() => Console.WriteLine("Parent received"))" MenuItems=MenuItems />
+
+@code
+{
+    private IList<BlazorMenuItem> MenuItems = new List<BlazorMenuItem>();
+
+    protected override void OnInitialized()
+    {
+        BlazorMenuItem fileMenuClass = new BlazorMenuItem("File");
+        BlazorMenuItem editMenuClass = new BlazorMenuItem("Edit");
+
+        BlazorMenuItem newFileMenuClass = new BlazorMenuItem("New File");
+        BlazorMenuItem newSolutionMenuClass = new BlazorMenuItem("File");
+        BlazorMenuItem recentFilesMenuClass = new BlazorMenuItem("Recent Files");
+
+        fileMenuClass.Add(newFileMenuClass);
+        fileMenuClass.Add(newSolutionMenuClass);
+        fileMenuClass.Add(recentFilesMenuClass);
+
+        BlazorMenuItem undoMenuClass = new BlazorMenuItem("Undo");
+        BlazorMenuItem redoMenuClass = new BlazorMenuItem("Redo");
+        editMenuClass.Add(undoMenuClass);
+        editMenuClass.Add(redoMenuClass);
+
+        BlazorMenuItem recentFile1MenuClass = new BlazorMenuItem("Recent File1");
+        BlazorMenuItem recentFile2MenuClass = new BlazorMenuItem("Recent File2");
+        recentFilesMenuClass.Add(recentFile1MenuClass);
+        recentFilesMenuClass.Add(recentFile2MenuClass);
+
+        BlazorMenuItem recentFile11MenuClass = new BlazorMenuItem("Recent File1");
+        BlazorMenuItem recentFile21MenuClass = new BlazorMenuItem("Recent File2");
+        recentFile1MenuClass.Add(recentFile11MenuClass);
+        recentFile1MenuClass.Add(recentFile21MenuClass);
+
+        BlazorMenuItem recentFile12MenuClass = new BlazorMenuItem("Recent File1");
+        BlazorMenuItem recentFile22MenuClass = new BlazorMenuItem("Recent File2");
+        recentFile21MenuClass.Add(recentFile12MenuClass);
+        recentFile21MenuClass.Add(recentFile22MenuClass);
+
+        MenuItems.Add(fileMenuClass);
+        MenuItems.Add(editMenuClass);
+
+        base.OnInitialized();
+    }
+}
