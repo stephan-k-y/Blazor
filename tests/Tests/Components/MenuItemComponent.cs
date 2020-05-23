@@ -5,6 +5,7 @@ using BlazorMenuLibrary;
 using System.Collections.Generic;
 
 using static Bunit.ComponentParameterFactory;
+using AngleSharp.Dom;
 
 namespace SampleApp.Tests.Components
 {
@@ -12,30 +13,18 @@ namespace SampleApp.Tests.Components
     {
         private IList<BlazorMenuItem> GenerateTestMenuItems()
         {
-            BlazorMenuItem fileMenuClass = new BlazorMenuItem("File");
-            BlazorMenuItem editMenuClass = new BlazorMenuItem("Edit");
+            BlazorMenuItem item11 = new BlazorMenuItem("Item 1.1");
+            BlazorMenuItem item12 = new BlazorMenuItem("Item 1.2");
 
-            BlazorMenuItem newFileMenuClass = new BlazorMenuItem("New File");
-            BlazorMenuItem newSolutionMenuClass = new BlazorMenuItem("File");
-            BlazorMenuItem recentFilesMenuClass = new BlazorMenuItem("Recent Files");
+            BlazorMenuItem item121 = new BlazorMenuItem("Item 1.2.1");
+            BlazorMenuItem item122 = new BlazorMenuItem("Item 1.2.2");
+            item12.Add(item121);
+            item12.Add(item122);
 
-            fileMenuClass.Add(newFileMenuClass);
-            fileMenuClass.Add(newSolutionMenuClass);
-            fileMenuClass.Add(recentFilesMenuClass);
-
-            BlazorMenuItem undoMenuClass = new BlazorMenuItem("Undo");
-            BlazorMenuItem redoMenuClass = new BlazorMenuItem("Redo");
-            editMenuClass.Add(undoMenuClass);
-            editMenuClass.Add(redoMenuClass);
-
-            BlazorMenuItem recentFile1MenuClass = new BlazorMenuItem("Recent File1");
-            BlazorMenuItem recentFile2MenuClass = new BlazorMenuItem("Recent File2");
-            recentFilesMenuClass.Add(recentFile1MenuClass);
-            recentFilesMenuClass.Add(recentFile2MenuClass);
 
             IList<BlazorMenuItem> menuItems = new List<BlazorMenuItem>();
-            menuItems.Add(fileMenuClass);
-            menuItems.Add(editMenuClass);
+            menuItems.Add(item11);
+            menuItems.Add(item12);
 
             return menuItems;
         }
@@ -49,7 +38,7 @@ namespace SampleApp.Tests.Components
 
             var menuItemComponents = myMenuComponent.FindComponents<BlazorMenuItemComponent>();
 
-            Assert.Equal(9, menuItemComponents.Count);
+            Assert.Equal(4, menuItemComponents.Count);
         }
 
         [Fact(DisplayName = "Should render top level menus")]
@@ -59,18 +48,59 @@ namespace SampleApp.Tests.Components
 
             var myMenuComponent = RenderComponent<BlazorMenuComponent>((nameof(BlazorMenuComponent.MenuItems), menuItems));
 
-            var menuItemComponents = myMenuComponent.FindComponents<BlazorMenuItemComponent>();
+            var menuItemComponents = new List<IRenderedComponent<BlazorMenuItemComponent>>();
+            menuItemComponents.AddRange(myMenuComponent.FindComponents<BlazorMenuItemComponent>());
 
-            int countTopLevelComponent = 0;
-            for(int i = 0; i < menuItemComponents.Count; i++)
-            {
-                if (menuItemComponents[i].Instance.IsTopLevelMenuItem)
-                {
-                    countTopLevelComponent++;
-                }
-            }
+            int countTopLevelComponent =
+                menuItemComponents.FindAll((component) => component.Instance.IsTopLevelMenuItem).Count;
 
             Assert.Equal(2, countTopLevelComponent);
+        }
+
+        [Fact(DisplayName = "Clicking on item with no subitems shoud trigger OnMenuItemClicked")]
+        public void ShouldTriggerOnMenuItemClicked()
+        {
+            var wasCalled = false;
+
+            IList<BlazorMenuItem> menuItems = GenerateTestMenuItems();
+
+            var myMenuComponent = RenderComponent<BlazorMenuComponent>(
+               EventCallback(nameof(BlazorMenuComponent.OnMenuItemClicked), (BlazorMenuItem _) => wasCalled = true),
+               (nameof(BlazorMenuComponent.MenuItems), menuItems)
+           );
+
+            var allAnchors = myMenuComponent.FindAll("a");
+
+            var anchorElements = new List<IElement>();
+            anchorElements.AddRange(allAnchors);
+
+            var item121 = anchorElements.Find((element) => element.TextContent.Trim() == "Item 1.2.1");
+            item121?.Click();
+
+            Assert.True(wasCalled);
+        }
+
+        [Fact(DisplayName = "Clicking on item with subitems shoud not trigger OnMenuItemClicked")]
+        public void ShouldNotTriggerOnMenuItemClicked()
+        {
+            var wasCalled = false;
+
+            IList<BlazorMenuItem> menuItems = GenerateTestMenuItems();
+
+            var myMenuComponent = RenderComponent<BlazorMenuComponent>(
+               EventCallback(nameof(BlazorMenuComponent.OnMenuItemClicked), (BlazorMenuItem _) => wasCalled = true),
+               (nameof(BlazorMenuComponent.MenuItems), menuItems)
+           );
+
+            var allAnchors = myMenuComponent.FindAll("a");
+
+            var anchorElements = new List<IElement>();
+            anchorElements.AddRange(allAnchors);
+
+            var item12 = anchorElements.Find((element) => element.TextContent.Trim() == "Item 1.2");
+            item12?.Click();
+
+            Assert.False(wasCalled);
         }
     }
 }
