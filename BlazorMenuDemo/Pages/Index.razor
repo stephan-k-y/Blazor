@@ -2,12 +2,18 @@
 
 <p>@menuItemText</p>
 
-<BlazorMenuComponent OnBlazorMenuItemClicked="@((menuItem) => menuItemText = "Menu item \"" + menuItem.Text + "\" was clicked")" MenuItems="@menuItems" />
+<BlazorMenuComponent OnBlazorMenuItemClicked="@OnBlazorMenuItemClicked"
+                     MenuItems="@menuItems" />
 
 @code
 {
     private IList<BlazorMenuItem> menuItems = new List<BlazorMenuItem>();
     private string menuItemText = "No menu item was clicked.";
+
+    private void OnBlazorMenuItemClicked(BlazorMenuItem menuItem)
+    {
+        menuItemText = "Menu item \"" + menuItem.Text + "\" was clicked";
+    }
 
     protected override void OnInitialized()
     {
